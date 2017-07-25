@@ -1,13 +1,14 @@
 var express = require('express')
 var bodyParser = require('body-parser')
+var cors = require('cors')
 var knex = require('./db/connection')
+
+var index = require('./routes/index')
 
 var app = express()
 
-app.get('/', (req, res) => {
-  knex('concert').select('*').then(function(concerts) {
-    res.json(concerts);
-  })
-})
+app.use(cors())
+
+app.use('/', index)
 
 app.listen(8080)
